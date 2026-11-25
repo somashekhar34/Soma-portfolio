@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { ChevronLeft, ChevronRight, Video } from "lucide-react";
-import { testimonials } from "../data/resume";
+import { testimonials, type Testimonial } from "../data/resume";
 
 const CARD_STEP = 340;
 
@@ -14,11 +14,29 @@ function initials(name: string) {
     .toUpperCase();
 }
 
+function TestimonialCard({ t }: { t: Testimonial }) {
+  return (
+    <div className="card flex w-72 flex-none flex-col items-center gap-3 p-6 text-center sm:w-80">
+      <span className="flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-accent-500 to-cyan-400 text-base font-bold text-white">
+        {initials(t.names)}
+      </span>
+      <div>
+        <h3 className="font-semibold text-slate-900 dark:text-white">{t.names}</h3>
+        <p className="text-xs font-medium text-accent-600 dark:text-accent-400">{t.company}</p>
+      </div>
+      <p className="text-sm leading-relaxed text-slate-600 dark:text-slate-400">{t.note}</p>
+      <div className="mt-2 flex items-center gap-1.5 rounded-full border border-dashed border-slate-300 px-3 py-1.5 text-xs font-medium text-slate-400 dark:border-slate-700 dark:text-slate-500">
+        <Video size={13} />
+        Video testimonial coming soon
+      </div>
+    </div>
+  );
+}
+
 export default function Testimonials() {
   const trackRef = useRef<HTMLDivElement | null>(null);
   const pausedRef = useRef(false);
   const resumeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const loop = [...testimonials, ...testimonials];
 
   useEffect(() => {
     const el = trackRef.current;
@@ -95,25 +113,15 @@ export default function Testimonials() {
           }}
           className="marquee-mask flex gap-5 overflow-x-auto px-10 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
-          {loop.map((t, i) => (
-            <div
-              key={`${t.names}-${i}`}
-              className="card flex w-72 flex-none flex-col items-center gap-3 p-6 text-center sm:w-80"
-            >
-              <span className="flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-accent-500 to-cyan-400 text-base font-bold text-white">
-                {initials(t.names)}
-              </span>
-              <div>
-                <h3 className="font-semibold text-slate-900 dark:text-white">{t.names}</h3>
-                <p className="text-xs font-medium text-accent-600 dark:text-accent-400">{t.company}</p>
-              </div>
-              <p className="text-sm leading-relaxed text-slate-600 dark:text-slate-400">{t.note}</p>
-              <div className="mt-2 flex items-center gap-1.5 rounded-full border border-dashed border-slate-300 px-3 py-1.5 text-xs font-medium text-slate-400 dark:border-slate-700 dark:text-slate-500">
-                <Video size={13} />
-                Video testimonial coming soon
-              </div>
-            </div>
+          {testimonials.map((t) => (
+            <TestimonialCard key={t.names} t={t} />
           ))}
+          {/* Duplicate set for the seamless loop, hidden from screen readers and text selection so it doesn't read as 10 real testimonials. */}
+          <div aria-hidden="true" inert className="contents">
+            {testimonials.map((t) => (
+              <TestimonialCard key={`${t.names}-dup`} t={t} />
+            ))}
+          </div>
         </div>
       </div>
     </section>

@@ -1,5 +1,5 @@
 export const profile = {
-  name: "Somasekhar Goud Addakula",
+  name: "Somasekhar Addakula",
   shortName: "Somasekhar Addakula",
   title: "Data Engineer",
   summary:
