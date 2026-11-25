@@ -134,6 +134,18 @@ export type ExperienceItem = {
 
 export const experience: ExperienceItem[] = [
   {
+    role: "Data Science Intern",
+    company: "Spero Institute",
+    period: "Jan 2024 - May 2024",
+    location: "Texas, United States",
+    bullets: [
+      "Built a mental healthcare analytics platform bridging patients, providers, and insurers to ensure patients receive the right care and documentation.",
+      "Integrated a predictive model recommending the required level of care from symptoms and measurement-based care metrics, learning from outcomes over time.",
+      "Built ETL pipelines on AWS (S3, Glue, Redshift, Lambda) with PySpark plus Kafka streaming, processing clinical data using HL7 and FHIR standards.",
+      "Added generative AI features with GPT-3, LangChain, and Pinecone, using Scale AI labeling to validate output quality for clinicians.",
+    ],
+  },
+  {
     role: "Senior Associate Data Engineer",
     company: "Egen Inc",
     period: "2024 - Present",
@@ -155,18 +167,6 @@ export const experience: ExperienceItem[] = [
       "Founding engineer of a startup valued at ~£8M, building four AI products (Squidgy, FanatiQ, YEAA, Handled).",
       "Built the Squidgy agentic platform (Python, PostgreSQL, Supabase, n8n, MCP), helping win 5 paying clients across the UK and Australia and supporting partnerships with NatWest.",
       "Delivered ElevenLabs voice agents and GoHighLevel sales funnels for clients, generating qualified leads and cutting turnaround times.",
-    ],
-  },
-  {
-    role: "Data Science Intern",
-    company: "Spero Institute",
-    period: "Jan 2024 - May 2024",
-    location: "Texas, United States",
-    bullets: [
-      "Built a mental healthcare analytics platform bridging patients, providers, and insurers to ensure patients receive the right care and documentation.",
-      "Integrated a predictive model recommending the required level of care from symptoms and measurement-based care metrics, learning from outcomes over time.",
-      "Built ETL pipelines on AWS (S3, Glue, Redshift, Lambda) with PySpark plus Kafka streaming, processing clinical data using HL7 and FHIR standards.",
-      "Added generative AI features with GPT-3, LangChain, and Pinecone, using Scale AI labeling to validate output quality for clinicians.",
     ],
   },
   {
