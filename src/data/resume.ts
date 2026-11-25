@@ -20,7 +20,7 @@ export type Company = {
   description: string;
   url?: string;
   logo?: string;
-  plainLogo?: boolean;
+  invertDark?: boolean;
 };
 
 export const workedFor: Company[] = [
@@ -39,7 +39,7 @@ export const workedFor: Company[] = [
       "A hosted AI platform for building and running AI businesses (~£8M valuation), building four products (Squidgy, FanatiQ, YEAA, and Handled), including Squidgy, an agentic automation platform.",
     url: "https://4142.ltd",
     logo: "logos/4142.webp",
-    plainLogo: true,
+    invertDark: true,
   },
   {
     name: "True Colors",
@@ -64,6 +64,7 @@ export const workedFor: Company[] = [
       "An industrial equipment sourcing and 3PL fulfillment company across the USA & Canada. I worked on sales outreach and logistics/supply-chain integrations with ImportYeti.",
     url: "https://quick3pl.com",
     logo: "logos/quick3pl.webp",
+    invertDark: true,
   },
   {
     name: "Hot Brass Orlando",
