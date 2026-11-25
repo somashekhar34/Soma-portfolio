@@ -2,7 +2,6 @@ export const profile = {
   name: "Somasekhar Goud Addakula",
   shortName: "Somasekhar Addakula",
   title: "Data Engineer",
-  tagline: "Customer Service, Security & AI Data Platforms",
   summary:
     "Data engineer with 4+ years designing data models, warehouses, and ETL/ELT pipelines in SQL, SparkSQL, and Python across AWS, Azure Databricks, GCP, and Snowflake. I build customer service and support data — including a production Contact Center AI agent for service calls — security and fraud data intelligence with risk flags and anomaly detection, and generative AI, agentic AI, and knowledge-graph data foundations. I own data quality, monitoring, on-call incident response, and root-cause analysis, follow security and compliance standards, and mentor engineers.",
   location: "United States",

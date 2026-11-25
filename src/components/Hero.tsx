@@ -48,7 +48,7 @@ export default function Hero() {
           variants={fadeUp}
           className="mt-4 text-lg font-medium text-gradient sm:text-2xl"
         >
-          {profile.title} · {profile.tagline}
+          {profile.title}
         </motion.p>
 
         <motion.p
