@@ -21,7 +21,7 @@ export default function Testimonials() {
           Testimonials
         </h2>
         <p className="mx-auto mt-4 max-w-2xl text-center text-sm text-slate-500 dark:text-slate-400">
-          Video testimonials from people I've worked with are on the way — check back soon.
+          Video testimonials from people I've worked with are on the way. Check back soon.
         </p>
 
         <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">

@@ -59,7 +59,7 @@ export default function Hero() {
           className="mx-auto mt-6 max-w-2xl text-balance text-base leading-relaxed text-slate-600 sm:text-lg dark:text-slate-400"
         >
           Building ETL/ELT pipelines, fraud &amp; security data intelligence, and generative‑AI
-          data foundations on AWS, GCP, Azure, and Snowflake — from warehouse to production voice agent.
+          data foundations on AWS, GCP, Azure, and Snowflake, from warehouse to production voice agent.
         </motion.p>
 
         <motion.div

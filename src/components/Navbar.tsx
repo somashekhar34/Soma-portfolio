@@ -35,7 +35,7 @@ export default function Navbar() {
     >
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
         <a href="#top" className="font-semibold tracking-tight text-slate-900 dark:text-white">
-          Somasekhar<span className="text-accent-500">.</span>
+          Soma<span className="text-accent-500">.</span>
         </a>
 
         <div className="hidden items-center gap-8 md:flex">

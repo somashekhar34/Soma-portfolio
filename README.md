@@ -1,4 +1,4 @@
-# Somasekhar Addakula — Portfolio
+# Somasekhar Addakula's Portfolio
 
 Personal portfolio site for Somasekhar Goud Addakula, Data Engineer. Built with React, TypeScript, Vite, Tailwind CSS, and Framer Motion.
 
@@ -33,4 +33,4 @@ To enable it the first time: in the repo's **Settings → Pages**, set **Source*
 
 ## Content
 
-All resume content (experience, skills, projects, education) lives in `src/data/resume.ts` — edit that file to update the site without touching components.
+All resume content (experience, skills, projects, education) lives in `src/data/resume.ts`; edit that file to update the site without touching components.

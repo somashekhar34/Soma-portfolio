@@ -3,7 +3,7 @@ export const profile = {
   shortName: "Somasekhar Addakula",
   title: "Data Engineer",
   summary:
-    "Data engineer with 4+ years designing data models, warehouses, and ETL/ELT pipelines in SQL, SparkSQL, and Python across AWS, Azure Databricks, GCP, and Snowflake. I build customer service and support data — including a production Contact Center AI agent for service calls — security and fraud data intelligence with risk flags and anomaly detection, and generative AI, agentic AI, and knowledge-graph data foundations. I own data quality, monitoring, on-call incident response, and root-cause analysis, follow security and compliance standards, and mentor engineers.",
+    "Data engineer with 4+ years designing data models, warehouses, and ETL/ELT pipelines in SQL, SparkSQL, and Python across AWS, Azure Databricks, GCP, and Snowflake. I build customer service and support data, including a production Contact Center AI agent for service calls; security and fraud data intelligence with risk flags and anomaly detection; and generative AI, agentic AI, and knowledge-graph data foundations. I own data quality, monitoring, on-call incident response, and root-cause analysis, follow security and compliance standards, and mentor engineers.",
   location: "United States",
   email: "somasekhar.addakula@gmail.com",
   phone: "+1 716 604 4029",
@@ -33,21 +33,21 @@ export const workedFor: Company[] = [
     name: "4142 Limited",
     role: "Founding Engineer (Part Time)",
     description:
-      "A hosted AI platform for building and running AI businesses (~£8M valuation), building four products — Squidgy, FanatiQ, YEAA, and Handled — including Squidgy, an agentic automation platform.",
+      "A hosted AI platform for building and running AI businesses (~£8M valuation), building four products (Squidgy, FanatiQ, YEAA, and Handled), including Squidgy, an agentic automation platform.",
     url: "https://4142.ltd",
   },
   {
     name: "True Colors",
     role: "App Developer",
     description:
-      '"The Dating App for the Self Aware" — I worked as an app developer building features for this dating platform.',
+      '"The Dating App for the Self Aware." I worked as an app developer building features for this dating platform.',
     url: "https://truecolorsdate.com",
   },
   {
     name: "Blastmymarket",
     role: "Freelance Web & API Developer",
     description:
-      "An AI agents & automated pipelines platform — virtual call centers, automated sales agents, and data-driven outreach — for which I built a browser extension and virtual handset with real-time engagement analytics.",
+      "An AI agents & automated pipelines platform (virtual call centers, automated sales agents, and data-driven outreach), for which I built a browser extension and virtual handset with real-time engagement analytics.",
     url: "https://www.blastmymarket.com",
   },
   {
@@ -136,11 +136,11 @@ export const experience: ExperienceItem[] = [
   {
     role: "Senior Associate Data Engineer",
     company: "Egen Inc",
-    period: "2024 — Present",
+    period: "2024 - Present",
     location: "Illinois, United States",
     bullets: [
       "Built a fraud detection platform for a state unemployment insurance agency, combining LogRocket clickstream data with batch claims, wage, and employer data in BigQuery and Snowflake.",
-      "Engineered an event-driven ingestion pipeline (Cloud Functions, Scheduler, PySpark on Databricks) made idempotent with MERGE loads, retries, and alerting — feeding session- and user-level anomaly flags.",
+      "Engineered an event-driven ingestion pipeline (Cloud Functions, Scheduler, PySpark on Databricks) made idempotent with MERGE loads, retries, and alerting, feeding session- and user-level anomaly flags.",
       "Developed a SQL rules engine with versioned flag history and a Neo4j property-graph solution to surface cross-matches between linked claimants, behind an investigator portal with Document AI ID checks.",
       "Built a Google Contact Center AI voice agent automating employer service calls, integrated with backend data via OpenAPI and webhooks on Cloud Run, and load-tested with Locust.",
       "For Caliber Collision, built a real-time streaming pipeline predicting whether a vehicle needs calibration after repair, using BERT/Gemini to fill missing parts codes.",
@@ -149,7 +149,7 @@ export const experience: ExperienceItem[] = [
   {
     role: "Founding Engineer (Part Time)",
     company: "4142 Limited",
-    period: "Oct 2024 — Apr 2026",
+    period: "Oct 2024 - Apr 2026",
     location: "London, United Kingdom",
     bullets: [
       "Founding engineer of a startup valued at ~£8M, building four AI products (Squidgy, FanatiQ, YEAA, Handled).",
@@ -160,7 +160,7 @@ export const experience: ExperienceItem[] = [
   {
     role: "Data Science Intern",
     company: "Spero Institute",
-    period: "Jan 2024 — May 2024",
+    period: "Jan 2024 - May 2024",
     location: "Texas, United States",
     bullets: [
       "Built a mental healthcare analytics platform bridging patients, providers, and insurers to ensure patients receive the right care and documentation.",
@@ -172,10 +172,10 @@ export const experience: ExperienceItem[] = [
   {
     role: "Big Data Engineer / ETL Developer",
     company: "Infosys Limited",
-    period: "2021 — 2023",
+    period: "2021 - 2023",
     location: "India",
     bullets: [
-      "Built a data platform optimizing sales and ad spend across Amazon Ads, Facebook, Pinterest, DV360, The Trade Desk, and Google Analytics — unifying campaign, click, conversion, and spend data.",
+      "Built a data platform optimizing sales and ad spend across Amazon Ads, Facebook, Pinterest, DV360, The Trade Desk, and Google Analytics, unifying campaign, click, conversion, and spend data.",
       "Ingested platform data via scheduled batch jobs (Dagster, Azure Data Factory) and streaming feeds, processing it with PySpark/SparkSQL on Azure Databricks.",
       "Modeled cross-channel campaign performance (ROAS, CPA, spend pacing) with dbt, with validation and reconciliation checks.",
       "Delivered Tableau dashboards guiding the client's marketing team to shift budget toward the best-performing platforms.",
@@ -184,7 +184,7 @@ export const experience: ExperienceItem[] = [
   {
     role: "Freelance Web & API Developer",
     company: "Blastmymarket | Accuracast",
-    period: "2018 — 2021",
+    period: "2018 - 2021",
     location: "Remote (United States & United Kingdom)",
     bullets: [
       "Built a browser extension and virtual handset (React, TypeScript, Node.js) with real-time engagement analytics via WebSockets, WebRTC, and Twilio on GCP.",
@@ -223,7 +223,7 @@ export const projects: Project[] = [
     context: "Egen Inc · Caliber Collision",
   },
   {
-    title: "Squidgy — Agentic Automation Platform",
+    title: "Squidgy: Agentic Automation Platform",
     description:
       "One of four AI products at an early-stage startup: a multi-agent automation platform built on Python, PostgreSQL, and Supabase with n8n workflows over MCP, which helped win five paying clients across the UK and Australia.",
     tags: ["Python", "Supabase", "n8n", "MCP", "Multi-agent"],
@@ -248,7 +248,7 @@ export const projects: Project[] = [
 export const education = {
   degree: "Master of Science in Data Science",
   school: "State University of New York at Buffalo",
-  period: "Jan 2023 — Jun 2024",
+  period: "Jan 2023 - Jun 2024",
   location: "Buffalo, New York, United States",
   gpa: "3.75",
 };
@@ -265,7 +265,7 @@ export const certifications = [
 ];
 
 export const publication = {
-  title: "Augmented Reality — Published Research Paper",
+  title: "Augmented Reality: Published Research Paper",
   venue: "IJNIET (UGC-approved journal)",
   date: "January 2020",
 };
