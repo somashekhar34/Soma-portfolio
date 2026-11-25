@@ -11,7 +11,7 @@ export const profile = {
   linkedin: "https://linkedin.com/in/somasekhar-addakula",
   blog: "https://somashekhar34.blogspot.com",
   resumeFile: "resume/Somasekhar_Addakula_Resume.pdf",
-  badges: ["Google Cloud Professional Data Engineer", "4+ Years Experience", "MS Data Science"],
+  badges: ["Google Cloud Professional Data Engineer", "4+ Years Experience"],
 };
 
 export type Company = {
