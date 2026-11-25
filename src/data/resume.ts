@@ -15,6 +15,49 @@ export const profile = {
   badges: ["Google Cloud Professional Data Engineer", "4+ Years Experience", "MS Data Science"],
 };
 
+export type Company = {
+  name: string;
+  role: string;
+  description: string;
+  url?: string;
+};
+
+export const workedFor: Company[] = [
+  {
+    name: "Accuracast",
+    role: "Freelance Web & API Developer",
+    description:
+      "A London-based international digital marketing agency (founded 2004) offering PPC, SEO, GEO, and social media marketing across industries.",
+    url: "https://www.accuracast.com",
+  },
+  {
+    name: "4142 Limited",
+    role: "Founding Engineer (Part Time)",
+    description:
+      "An early-stage AI startup (~£8M valuation) building four products — Squidgy, FanatiQ, YEAA, and Handled — including Squidgy, an agentic automation platform.",
+  },
+  {
+    name: "True Colors",
+    role: "App Developer",
+    description:
+      '"The Dating App for the Self Aware" — I worked as an app developer building features for this dating platform.',
+    url: "https://truecolorsdate.com",
+  },
+  {
+    name: "Blastmymarket",
+    role: "Freelance Web & API Developer",
+    description:
+      "A sales outreach platform providing ringless voicemail and calling tools, for which I built a browser extension and virtual handset with real-time engagement analytics.",
+  },
+  {
+    name: "Quick3PL",
+    role: "Developer",
+    description:
+      "An industrial equipment sourcing and 3PL fulfillment company across the USA & Canada. I worked on sales outreach and logistics/supply-chain integrations with ImportYeti.",
+    url: "https://quick3pl.com",
+  },
+];
+
 export type SkillGroup = {
   title: string;
   skills: string[];
