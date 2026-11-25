@@ -34,7 +34,8 @@ export const workedFor: Company[] = [
     name: "4142 Limited",
     role: "Founding Engineer (Part Time)",
     description:
-      "An early-stage AI startup (~£8M valuation) building four products — Squidgy, FanatiQ, YEAA, and Handled — including Squidgy, an agentic automation platform.",
+      "A hosted AI platform for building and running AI businesses (~£8M valuation), building four products — Squidgy, FanatiQ, YEAA, and Handled — including Squidgy, an agentic automation platform.",
+    url: "https://4142.ltd",
   },
   {
     name: "True Colors",
@@ -47,7 +48,8 @@ export const workedFor: Company[] = [
     name: "Blastmymarket",
     role: "Freelance Web & API Developer",
     description:
-      "A sales outreach platform providing ringless voicemail and calling tools, for which I built a browser extension and virtual handset with real-time engagement analytics.",
+      "An AI agents & automated pipelines platform — virtual call centers, automated sales agents, and data-driven outreach — for which I built a browser extension and virtual handset with real-time engagement analytics.",
+    url: "https://www.blastmymarket.com",
   },
   {
     name: "Quick3PL",
