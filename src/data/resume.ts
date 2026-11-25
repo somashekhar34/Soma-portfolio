@@ -57,6 +57,13 @@ export const workedFor: Company[] = [
       "An industrial equipment sourcing and 3PL fulfillment company across the USA & Canada. I worked on sales outreach and logistics/supply-chain integrations with ImportYeti.",
     url: "https://quick3pl.com",
   },
+  {
+    name: "Hot Brass Orlando",
+    role: "Web Developer & Maintainer",
+    description:
+      "An indoor shooting range in Orlando, FL offering machine gun experiences with real, fully automatic firearms, plus a free firearms museum. I developed their website from zero to launch and maintain it.",
+    url: "https://hotbrassorlando.com",
+  },
 ];
 
 export type Testimonial = {
@@ -90,6 +97,11 @@ export const testimonials: Testimonial[] = [
     names: "Jarrod Knowles",
     company: "True Colors",
     note: "Worked together at True Colors, where I built app features for the dating platform.",
+  },
+  {
+    names: "Aaron & Andy",
+    company: "Hot Brass Orlando",
+    note: "Worked together at Hot Brass Orlando, where I built and maintain their website from zero to launch.",
   },
 ];
 
