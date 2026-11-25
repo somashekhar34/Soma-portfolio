@@ -3,7 +3,7 @@ export const profile = {
   shortName: "Somasekhar Addakula",
   title: "Data Engineer",
   summary:
-    "Data engineer with 4+ years designing data models, warehouses, and ETL/ELT pipelines in SQL, SparkSQL, and Python across AWS, Azure Databricks, GCP, and Snowflake. I build customer service and support data, including a production Contact Center AI agent for service calls; security and fraud data intelligence with risk flags and anomaly detection; and generative AI, agentic AI, and knowledge-graph data foundations. I own data quality, monitoring, on-call incident response, and root-cause analysis, follow security and compliance standards, and mentor engineers.",
+    "Data engineer with 4+ years designing data models, warehouses, and ETL/ELT pipelines in SQL, Spark SQL, and Python across AWS, Azure Databricks, GCP, and Snowflake. I build customer service and support data, including a production Contact Center AI agent for service calls; security and fraud data intelligence with risk flags and anomaly detection; and generative AI, agentic AI, and knowledge-graph data foundations. I own data quality, monitoring, on-call incident response, and root-cause analysis, follow security and compliance standards, and mentor engineers.",
   location: "United States",
   email: "somasekhar.addakula@gmail.com",
   phone: "+1 716 604 4029",
@@ -81,7 +81,7 @@ export const skillGroups: SkillGroup[] = [
   {
     title: "Languages & Advanced SQL",
     skills: [
-      "Python", "SQL", "PySpark", "SparkSQL", "TypeScript", "JavaScript", "C",
+      "Python", "SQL", "PySpark", "Spark SQL", "TypeScript", "JavaScript", "C",
       "BigQuery TVFs", "MERGE/UPDATE DML", "Property Graphs",
     ],
   },
@@ -113,7 +113,7 @@ export const skillGroups: SkillGroup[] = [
   },
   {
     title: "Web, APIs & Backend",
-    skills: ["Flask", "FastAPI", "Node.js", "React.js", "Angular", "WebSockets", "WebRTC", "Twilio", "REST/OpenAPI"],
+    skills: ["Flask", "FastAPI", "Node.js", "React", "Angular", "WebSockets", "WebRTC", "Twilio", "REST/OpenAPI"],
   },
   {
     title: "ML, BI & DevOps",
@@ -176,7 +176,7 @@ export const experience: ExperienceItem[] = [
     location: "India",
     bullets: [
       "Built a data platform optimizing sales and ad spend across Amazon Ads, Facebook, Pinterest, DV360, The Trade Desk, and Google Analytics, unifying campaign, click, conversion, and spend data.",
-      "Ingested platform data via scheduled batch jobs (Dagster, Azure Data Factory) and streaming feeds, processing it with PySpark/SparkSQL on Azure Databricks.",
+      "Ingested platform data via scheduled batch jobs (Dagster, Azure Data Factory) and streaming feeds, processing it with PySpark/Spark SQL on Azure Databricks.",
       "Modeled cross-channel campaign performance (ROAS, CPA, spend pacing) with dbt, with validation and reconciliation checks.",
       "Delivered Tableau dashboards guiding the client's marketing team to shift budget toward the best-performing platforms.",
     ],
