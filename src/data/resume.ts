@@ -191,7 +191,7 @@ export const experience: ExperienceItem[] = [
     ],
   },
   {
-    role: "Big Data Engineer / ETL Developer",
+    role: "Data Engineer",
     company: "Infosys Limited",
     period: "2021 - 2023",
     location: "India",
