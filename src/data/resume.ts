@@ -118,7 +118,7 @@ export const skillGroups: SkillGroup[] = [
   {
     title: "ML, BI & DevOps",
     skills: [
-      "Scikit-learn", "TensorFlow", "Keras", "Tableau", "Power BI", "Looker Studio",
+      "scikit-learn", "TensorFlow", "Keras", "Tableau", "Power BI", "Looker Studio",
       "Terraform", "Git", "pytest", "Locust", "Kafka",
     ],
   },
