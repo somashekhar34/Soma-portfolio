@@ -2,7 +2,7 @@
 
 Personal portfolio site for Somasekhar Goud Addakula, Data Engineer. Built with React, TypeScript, Vite, Tailwind CSS, and Framer Motion.
 
-**Live site:** https://somashekhar34.github.io/soma-portfolio/
+**Live site:** https://somashekhar34.github.io/Soma-portfolio/
 
 ## Stack
 
