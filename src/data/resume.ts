@@ -19,6 +19,7 @@ export type Company = {
   role: string;
   description: string;
   url?: string;
+  logo?: string;
 };
 
 export const workedFor: Company[] = [
@@ -28,6 +29,7 @@ export const workedFor: Company[] = [
     description:
       "A London-based international digital marketing agency (founded 2004) offering PPC, SEO, GEO, and social media marketing across industries.",
     url: "https://www.accuracast.com",
+    logo: "logos/accuracast.png",
   },
   {
     name: "4142 Limited",
@@ -35,6 +37,7 @@ export const workedFor: Company[] = [
     description:
       "A hosted AI platform for building and running AI businesses (~£8M valuation), building four products (Squidgy, FanatiQ, YEAA, and Handled), including Squidgy, an agentic automation platform.",
     url: "https://4142.ltd",
+    logo: "logos/4142.webp",
   },
   {
     name: "True Colors",
@@ -42,6 +45,7 @@ export const workedFor: Company[] = [
     description:
       '"The Dating App for the Self Aware." I worked as an app developer building features for this dating platform.',
     url: "https://truecolorsdate.com",
+    logo: "logos/truecolors.png",
   },
   {
     name: "Blastmymarket",
@@ -49,6 +53,7 @@ export const workedFor: Company[] = [
     description:
       "An AI agents & automated pipelines platform (virtual call centers, automated sales agents, and data-driven outreach), for which I built a browser extension and virtual handset with real-time engagement analytics.",
     url: "https://www.blastmymarket.com",
+    logo: "logos/blastmymarket.png",
   },
   {
     name: "Quick3PL",
@@ -56,6 +61,7 @@ export const workedFor: Company[] = [
     description:
       "An industrial equipment sourcing and 3PL fulfillment company across the USA & Canada. I worked on sales outreach and logistics/supply-chain integrations with ImportYeti.",
     url: "https://quick3pl.com",
+    logo: "logos/quick3pl.webp",
   },
   {
     name: "Hot Brass Orlando",
@@ -63,6 +69,7 @@ export const workedFor: Company[] = [
     description:
       "An indoor shooting range in Orlando, FL offering machine gun experiences with real, fully automatic firearms, plus a free firearms museum. I developed their website from zero to launch and maintain it.",
     url: "https://hotbrassorlando.com",
+    logo: "logos/hotbrass.png",
   },
 ];
 

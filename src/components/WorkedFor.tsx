@@ -33,9 +33,19 @@ export default function WorkedFor() {
                   {...(c.url ? { href: c.url, target: "_blank", rel: "noreferrer" } : {})}
                   className="card group flex h-full gap-4 p-6 text-left transition hover:-translate-y-0.5 hover:border-accent-300 dark:hover:border-accent-500/40"
                 >
-                  <span className="flex h-11 w-11 flex-none items-center justify-center rounded-xl bg-gradient-to-br from-accent-500 to-cyan-400 text-sm font-bold text-white">
-                    {initials(c.name)}
-                  </span>
+                  {c.logo ? (
+                    <span className="flex h-12 w-16 flex-none items-center justify-center rounded-xl bg-white p-1.5 ring-1 ring-slate-200 dark:ring-slate-700">
+                      <img
+                        src={`${import.meta.env.BASE_URL}${c.logo}`}
+                        alt={`${c.name} logo`}
+                        className="max-h-full max-w-full object-contain"
+                      />
+                    </span>
+                  ) : (
+                    <span className="flex h-11 w-11 flex-none items-center justify-center rounded-xl bg-gradient-to-br from-accent-500 to-cyan-400 text-sm font-bold text-white">
+                      {initials(c.name)}
+                    </span>
+                  )}
                   <div className="min-w-0">
                     <div className="flex items-center gap-1.5">
                       <h3 className="font-semibold text-slate-900 dark:text-white">{c.name}</h3>
