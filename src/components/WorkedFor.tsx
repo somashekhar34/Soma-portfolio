@@ -15,7 +15,7 @@ export default function WorkedFor() {
           Worked For
         </h2>
         <p className="mx-auto mt-4 max-w-2xl text-center text-sm text-slate-500 dark:text-slate-400">
-          Companies and products I've contributed to across freelance, startup, and agency work.
+          Companies and products I've worked closely with across freelance, startup, and agency work.
         </p>
 
         <div className="mt-12 grid gap-5 sm:grid-cols-2">
