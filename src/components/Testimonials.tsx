@@ -41,6 +41,7 @@ export default function Testimonials() {
                 <h3 className="font-semibold text-slate-900 dark:text-white">{t.names}</h3>
                 <p className="text-xs font-medium text-accent-600 dark:text-accent-400">{t.company}</p>
               </div>
+              <p className="text-sm leading-relaxed text-slate-600 dark:text-slate-400">{t.note}</p>
               <div className="mt-2 flex items-center gap-1.5 rounded-full border border-dashed border-slate-300 px-3 py-1.5 text-xs font-medium text-slate-400 dark:border-slate-700 dark:text-slate-500">
                 <Video size={13} />
                 Video testimonial coming soon

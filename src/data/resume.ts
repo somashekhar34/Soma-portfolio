@@ -62,14 +62,35 @@ export const workedFor: Company[] = [
 export type Testimonial = {
   names: string;
   company: string;
+  note: string;
 };
 
 export const testimonials: Testimonial[] = [
-  { names: "Seth Ward", company: "4142 Limited" },
-  { names: "Farhad & Jerome Divecha", company: "Accuracast" },
-  { names: "Jeremy Chen", company: "Blastmymarket" },
-  { names: "Ovi Corton", company: "Quick3PL" },
-  { names: "Jarrod Knowles", company: "True Colors" },
+  {
+    names: "Seth Ward",
+    company: "4142 Limited",
+    note: "Worked together at 4142 Limited, where I helped build Squidgy, an agentic automation platform that helped win paying clients across the UK and Australia.",
+  },
+  {
+    names: "Farhad & Jerome Divecha",
+    company: "Accuracast",
+    note: "Worked together at Accuracast as a freelance web and API developer supporting digital marketing campaigns.",
+  },
+  {
+    names: "Jeremy Chen",
+    company: "Blastmymarket",
+    note: "Worked together at Blastmymarket, where I built a browser extension and virtual handset with real-time engagement analytics.",
+  },
+  {
+    names: "Ovi Corton",
+    company: "Quick3PL",
+    note: "Worked together at Quick3PL on sales outreach and logistics and supply-chain integrations with ImportYeti.",
+  },
+  {
+    names: "Jarrod Knowles",
+    company: "True Colors",
+    note: "Worked together at True Colors, where I built app features for the dating platform.",
+  },
 ];
 
 export type SkillGroup = {
