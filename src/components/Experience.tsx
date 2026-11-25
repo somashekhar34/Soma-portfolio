@@ -28,7 +28,9 @@ export default function Experience() {
               <div className="card p-5 sm:p-6">
                 <div className="flex flex-wrap items-baseline justify-between gap-2">
                   <h3 className="text-lg font-semibold text-slate-900 dark:text-white">{job.role}</h3>
-                  <span className="text-xs font-medium text-accent-600 dark:text-accent-400">{job.period}</span>
+                  {job.period && (
+                    <span className="text-xs font-medium text-accent-600 dark:text-accent-400">{job.period}</span>
+                  )}
                 </div>
                 <div className="mt-1 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-slate-500 dark:text-slate-400">
                   <span className="font-medium text-slate-700 dark:text-slate-300">{job.company}</span>
