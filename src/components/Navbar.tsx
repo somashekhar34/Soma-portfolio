@@ -6,10 +6,11 @@ import { profile } from "../data/resume";
 const links = [
   { href: "#about", label: "About" },
   { href: "#experience", label: "Experience" },
-  { href: "#worked-for", label: "Worked For" },
   { href: "#projects", label: "Projects" },
   { href: "#skills", label: "Skills" },
   { href: "#contact", label: "Contact" },
+  { href: "#worked-for", label: "Worked For" },
+  { href: "#testimonials", label: "Testimonials" },
 ];
 
 export default function Navbar() {

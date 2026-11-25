@@ -60,6 +60,19 @@ export const workedFor: Company[] = [
   },
 ];
 
+export type Testimonial = {
+  names: string;
+  company: string;
+};
+
+export const testimonials: Testimonial[] = [
+  { names: "Seth Ward", company: "4142 Limited" },
+  { names: "Farhad & Jerome Divecha", company: "Accuracast" },
+  { names: "Jeremy Chen", company: "Blastmymarket" },
+  { names: "Ovi Corton", company: "Quick3PL" },
+  { names: "Jarrod Knowles", company: "True Colors" },
+];
+
 export type SkillGroup = {
   title: string;
   skills: string[];
