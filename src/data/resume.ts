@@ -155,7 +155,7 @@ export type ExperienceItem = {
 
 export const experience: ExperienceItem[] = [
   {
-    role: "Senior Associate Data Engineer",
+    role: "Data Engineer",
     company: "Egen Inc",
     period: "2024 - Present",
     location: "Illinois, United States",
