@@ -28,10 +28,10 @@ export default function Testimonials() {
           {testimonials.map((t, i) => (
             <motion.div
               key={t.names}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, x: -40 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, margin: "-40px" }}
-              transition={{ delay: (i % 3) * 0.08, duration: 0.4 }}
+              transition={{ delay: (i % 3) * 0.08, duration: 0.45, ease: "easeOut" }}
               className="card flex flex-col items-center gap-3 p-6 text-center"
             >
               <span className="flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-accent-500 to-cyan-400 text-base font-bold text-white">
