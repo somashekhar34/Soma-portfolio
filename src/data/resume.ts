@@ -181,16 +181,6 @@ export const experience: ExperienceItem[] = [
       "Delivered Tableau dashboards guiding the client's marketing team to shift budget toward the best-performing platforms.",
     ],
   },
-  {
-    role: "Freelance Web & API Developer",
-    company: "Blastmymarket | Accuracast",
-    period: "2018 - 2021",
-    location: "Remote (United States & United Kingdom)",
-    bullets: [
-      "Built a browser extension and virtual handset (React, TypeScript, Node.js) with real-time engagement analytics via WebSockets, WebRTC, and Twilio on GCP.",
-      "Built feed pipelines connecting a resort booking API to Google and Facebook listings using Python, cron, and XML generation.",
-    ],
-  },
 ];
 
 export type Project = {
