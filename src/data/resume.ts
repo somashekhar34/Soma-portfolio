@@ -20,6 +20,7 @@ export type Company = {
   description: string;
   url?: string;
   logo?: string;
+  plainLogo?: boolean;
 };
 
 export const workedFor: Company[] = [
@@ -38,6 +39,7 @@ export const workedFor: Company[] = [
       "A hosted AI platform for building and running AI businesses (~£8M valuation), building four products (Squidgy, FanatiQ, YEAA, and Handled), including Squidgy, an agentic automation platform.",
     url: "https://4142.ltd",
     logo: "logos/4142.webp",
+    plainLogo: true,
   },
   {
     name: "True Colors",
