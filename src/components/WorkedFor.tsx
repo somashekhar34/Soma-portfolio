@@ -34,11 +34,13 @@ export default function WorkedFor() {
                   className="card group flex h-full gap-4 p-6 text-left transition hover:-translate-y-0.5 hover:border-accent-300 dark:hover:border-accent-500/40"
                 >
                   {c.logo ? (
-                    <img
-                      src={`${import.meta.env.BASE_URL}${c.logo}`}
-                      alt={`${c.name} logo`}
-                      className={`h-14 w-auto max-w-28 flex-none object-contain ${c.invertDark ? "dark:invert" : ""}`}
-                    />
+                    <span className="flex h-14 w-20 flex-none items-center justify-center">
+                      <img
+                        src={`${import.meta.env.BASE_URL}${c.logo}`}
+                        alt={`${c.name} logo`}
+                        className={`max-h-full max-w-full object-contain ${c.invertDark ? "dark:invert" : ""}`}
+                      />
+                    </span>
                   ) : (
                     <span className="flex h-11 w-11 flex-none items-center justify-center rounded-xl bg-gradient-to-br from-accent-500 to-cyan-400 text-sm font-bold text-white">
                       {initials(c.name)}
