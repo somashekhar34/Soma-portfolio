@@ -80,6 +80,8 @@ export type Testimonial = {
   names: string;
   company: string;
   note: string;
+  video?: string;
+  poster?: string;
 };
 
 export const testimonials: Testimonial[] = [
@@ -92,6 +94,8 @@ export const testimonials: Testimonial[] = [
     names: "Farhad & Jerome Divecha",
     company: "Accuracast",
     note: "Worked together at Accuracast as a freelance web and API developer supporting digital marketing campaigns.",
+    video: "testimonials/jerome.mp4",
+    poster: "testimonials/jerome-poster.jpg",
   },
   {
     names: "Jeremy Chen",

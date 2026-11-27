@@ -25,10 +25,22 @@ function TestimonialCard({ t }: { t: Testimonial }) {
         <p className="text-xs font-medium text-accent-600 dark:text-accent-400">{t.company}</p>
       </div>
       <p className="text-sm leading-relaxed text-slate-600 dark:text-slate-400">{t.note}</p>
-      <div className="mt-2 flex items-center gap-1.5 rounded-full border border-dashed border-slate-300 px-3 py-1.5 text-xs font-medium text-slate-400 dark:border-slate-700 dark:text-slate-500">
-        <Video size={13} />
-        Video testimonial coming soon
-      </div>
+      {t.video ? (
+        <video
+          controls
+          playsInline
+          preload="metadata"
+          poster={t.poster ? `${import.meta.env.BASE_URL}${t.poster}` : undefined}
+          className="mt-2 max-h-64 w-full rounded-xl bg-black object-contain"
+        >
+          <source src={`${import.meta.env.BASE_URL}${t.video}`} type="video/mp4" />
+        </video>
+      ) : (
+        <div className="mt-2 flex items-center gap-1.5 rounded-full border border-dashed border-slate-300 px-3 py-1.5 text-xs font-medium text-slate-400 dark:border-slate-700 dark:text-slate-500">
+          <Video size={13} />
+          Video testimonial coming soon
+        </div>
+      )}
     </div>
   );
 }
@@ -111,7 +123,7 @@ export default function Testimonials() {
           onMouseLeave={() => {
             pausedRef.current = false;
           }}
-          className="marquee-mask flex gap-5 overflow-x-auto px-10 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          className="marquee-mask flex items-start gap-5 overflow-x-auto px-10 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
           {testimonials.map((t) => (
             <TestimonialCard key={t.names} t={t} />
