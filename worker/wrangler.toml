@@ -4,9 +4,9 @@ compatibility_date = "2026-11-01"
 
 [[kv_namespaces]]
 binding = "RATE_LIMIT"
-id = "REPLACE_WITH_KV_NAMESPACE_ID"
+id = "eeba0ff3d74e493caef196ffffb7d7a3"
 
 [[d1_databases]]
 binding = "DB"
 database_name = "soma-fit-analyzer-db"
-database_id = "REPLACE_WITH_D1_DATABASE_ID"
+database_id = "45427058-c066-435a-a617-a5c5f39d5894"
