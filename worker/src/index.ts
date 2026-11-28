@@ -1,8 +1,12 @@
-import { CANDIDATE_CONTEXT } from "./profile";
+import { callGroq, type FitResult } from "./groq";
+import { getRecentCorrections, getStats, insertFeedback, insertSearch } from "./db";
+import { renderAdminPage } from "./admin";
 
 export interface Env {
   GROQ_API_KEY: string;
+  ADMIN_KEY: string;
   RATE_LIMIT: KVNamespace;
+  DB: D1Database;
 }
 
 const ALLOWED_ORIGINS = new Set([
@@ -15,13 +19,11 @@ const ALLOWED_ORIGINS = new Set([
 
 const RATE_LIMIT_MAX = 6; // requests per window, per IP
 const RATE_LIMIT_WINDOW_SECONDS = 60 * 60; // 1 hour
-const MAX_JOB_TEXT_CHARS = 12000;
-const MODEL = "llama-3.3-70b-versatile";
 
 function corsHeaders(origin: string | null): HeadersInit {
   const headers: Record<string, string> = {
     "Access-Control-Allow-Methods": "POST, OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type",
+    "Access-Control-Allow-Headers": "Content-Type, X-Admin-Key",
   };
   if (origin && ALLOWED_ORIGINS.has(origin)) {
     headers["Access-Control-Allow-Origin"] = origin;
@@ -99,97 +101,6 @@ async function fetchJobTextFromUrl(url: string): Promise<string> {
   return text;
 }
 
-function buildPrompt(jobText: string): string {
-  return `You are an impartial technical recruiting analyst. Compare the CANDIDATE background below against the JOB DESCRIPTION, and assess fit honestly — do not inflate the score, and call out real gaps where they exist.
-
-CANDIDATE BACKGROUND:
-"""
-${CANDIDATE_CONTEXT}
-"""
-
-JOB DESCRIPTION:
-"""
-${jobText.slice(0, MAX_JOB_TEXT_CHARS)}
-"""
-
-Respond with ONLY a JSON object (no markdown, no commentary) matching exactly this shape:
-{
-  "score": <integer 0-100, overall fit score>,
-  "verdict": "<one short phrase, e.g. 'Strong Match', 'Good Match', 'Partial Match', 'Not a Strong Fit'>",
-  "breakdown": [
-    { "requirement": "<a specific requirement or theme from the job post>", "status": "<match|partial|gap>", "note": "<one sentence grounded in the candidate's actual background>" }
-  ],
-  "pitch": "<a short, honest, specific 2-4 sentence pitch for why this candidate suits the role, written in third person, grounded only in what's in the candidate background above>"
-}
-
-Include 4 to 7 items in "breakdown", covering the most important requirements in the job post. Never invent experience the candidate doesn't have. If the role is a poor fit, say so plainly in the verdict and pitch rather than forcing a positive spin.`;
-}
-
-type FitResult = {
-  score: number;
-  verdict: string;
-  breakdown: { requirement: string; status: string; note: string }[];
-  pitch: string;
-};
-
-function validateFitResult(data: unknown): FitResult {
-  if (!data || typeof data !== "object") throw new Error("Malformed model response.");
-  const d = data as Record<string, unknown>;
-  if (typeof d.score !== "number" || typeof d.verdict !== "string" || typeof d.pitch !== "string" || !Array.isArray(d.breakdown)) {
-    throw new Error("Malformed model response.");
-  }
-  const breakdown = d.breakdown.map((item) => {
-    const i = item as Record<string, unknown>;
-    return {
-      requirement: String(i.requirement ?? ""),
-      status: String(i.status ?? "partial"),
-      note: String(i.note ?? ""),
-    };
-  });
-  return {
-    score: Math.max(0, Math.min(100, Math.round(d.score))),
-    verdict: d.verdict,
-    breakdown,
-    pitch: d.pitch,
-  };
-}
-
-async function callGroq(env: Env, jobText: string): Promise<FitResult> {
-  const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${env.GROQ_API_KEY}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      model: MODEL,
-      messages: [{ role: "user", content: buildPrompt(jobText) }],
-      response_format: { type: "json_object" },
-      temperature: 0.3,
-      max_tokens: 1500,
-    }),
-  });
-
-  if (!res.ok) {
-    const body = await res.text().catch(() => "");
-    throw new Error(`Groq API error (${res.status}): ${body.slice(0, 300)}`);
-  }
-
-  const data = (await res.json()) as {
-    choices?: { message?: { content?: string } }[];
-  };
-  const content = data.choices?.[0]?.message?.content;
-  if (!content) throw new Error("Empty response from model.");
-
-  let parsed: unknown;
-  try {
-    parsed = JSON.parse(content);
-  } catch {
-    throw new Error("Model did not return valid JSON.");
-  }
-  return validateFitResult(parsed);
-}
-
 async function checkRateLimit(env: Env, ip: string): Promise<boolean> {
   const key = `rl:${ip}`;
   const current = await env.RATE_LIMIT.get(key);
@@ -201,69 +112,145 @@ async function checkRateLimit(env: Env, ip: string): Promise<boolean> {
   return true;
 }
 
+async function hashIp(ip: string): Promise<string> {
+  const data = new TextEncoder().encode(ip);
+  const digest = await crypto.subtle.digest("SHA-256", data);
+  return [...new Uint8Array(digest)].map((b) => b.toString(16).padStart(2, "0")).join("");
+}
+
+async function handleAnalyze(request: Request, env: Env, origin: string | null): Promise<Response> {
+  let body: { jobText?: string; jobUrl?: string };
+  try {
+    body = await request.json();
+  } catch {
+    return json({ error: "Invalid request body." }, 400, origin);
+  }
+
+  const jobTextInput = (body.jobText || "").trim();
+  const jobUrlInput = (body.jobUrl || "").trim();
+
+  if (!jobTextInput && !jobUrlInput) {
+    return json({ error: "Provide a job description or a URL." }, 400, origin);
+  }
+
+  let jobText = jobTextInput;
+  if (!jobText && jobUrlInput) {
+    try {
+      jobText = await fetchJobTextFromUrl(jobUrlInput);
+    } catch (e) {
+      return json({ error: (e as Error).message }, 422, origin);
+    }
+  }
+
+  if (jobText.length < 50) {
+    return json(
+      { error: "That job description looks too short to analyze meaningfully." },
+      400,
+      origin,
+    );
+  }
+
+  const ip = request.headers.get("CF-Connecting-IP") || "unknown";
+  const allowed = await checkRateLimit(env, ip);
+  if (!allowed) {
+    return json({ error: "Too many requests. Please try again in a bit." }, 429, origin);
+  }
+
+  try {
+    const corrections = await getRecentCorrections(env).catch(() => []);
+    const result: FitResult = await callGroq(env, jobText, corrections);
+
+    let searchId: number | null = null;
+    try {
+      const ipHash = await hashIp(ip);
+      searchId = await insertSearch(env, {
+        jobText,
+        jobUrl: jobUrlInput || null,
+        result,
+        ipHash,
+      });
+    } catch {
+      // Persistence is best-effort; don't fail the user's request if it breaks.
+    }
+
+    return json({ ...result, searchId }, 200, origin);
+  } catch (e) {
+    return json({ error: (e as Error).message || "Analysis failed." }, 502, origin);
+  }
+}
+
+async function handleFeedback(request: Request, env: Env, origin: string | null): Promise<Response> {
+  let body: { searchId?: number; rating?: string; comment?: string };
+  try {
+    body = await request.json();
+  } catch {
+    return json({ error: "Invalid request body." }, 400, origin);
+  }
+
+  if (
+    typeof body.searchId !== "number" ||
+    (body.rating !== "accurate" && body.rating !== "inaccurate")
+  ) {
+    return json({ error: "Invalid feedback payload." }, 400, origin);
+  }
+
+  try {
+    await insertFeedback(env, {
+      searchId: body.searchId,
+      rating: body.rating,
+      comment: (body.comment || "").trim().slice(0, 2000) || null,
+    });
+    return json({ ok: true }, 200, origin);
+  } catch (e) {
+    return json({ error: (e as Error).message || "Failed to save feedback." }, 500, origin);
+  }
+}
+
+function isAdminAuthed(request: Request, env: Env): boolean {
+  if (!env.ADMIN_KEY) return false;
+  const key = request.headers.get("X-Admin-Key") || new URL(request.url).searchParams.get("key");
+  return key === env.ADMIN_KEY;
+}
+
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     const origin = request.headers.get("Origin");
+    const url = new URL(request.url);
 
     if (request.method === "OPTIONS") {
       return new Response(null, { status: 204, headers: corsHeaders(origin) });
     }
 
-    if (request.method !== "POST") {
-      return json({ error: "Method not allowed." }, 405, origin);
+    if (url.pathname === "/admin" && request.method === "GET") {
+      return new Response(renderAdminPage(), {
+        headers: { "Content-Type": "text/html; charset=utf-8" },
+      });
     }
 
-    const url = new URL(request.url);
-    if (url.pathname !== "/analyze") {
-      return json({ error: "Not found." }, 404, origin);
-    }
-
-    let body: { jobText?: string; jobUrl?: string };
-    try {
-      body = await request.json();
-    } catch {
-      return json({ error: "Invalid request body." }, 400, origin);
-    }
-
-    const jobTextInput = (body.jobText || "").trim();
-    const jobUrlInput = (body.jobUrl || "").trim();
-
-    if (!jobTextInput && !jobUrlInput) {
-      return json({ error: "Provide a job description or a URL." }, 400, origin);
-    }
-
-    let jobText = jobTextInput;
-    if (!jobText && jobUrlInput) {
+    if (url.pathname === "/stats" && request.method === "GET") {
+      if (!isAdminAuthed(request, env)) {
+        return json({ error: "Unauthorized." }, 401, origin);
+      }
       try {
-        jobText = await fetchJobTextFromUrl(jobUrlInput);
+        const stats = await getStats(env);
+        return json(stats, 200, origin);
       } catch (e) {
-        return json({ error: (e as Error).message }, 422, origin);
+        return json({ error: (e as Error).message || "Failed to load stats." }, 500, origin);
       }
     }
 
-    if (jobText.length < 50) {
-      return json(
-        { error: "That job description looks too short to analyze meaningfully." },
-        400,
-        origin,
-      );
+    if (url.pathname === "/analyze" && request.method === "POST") {
+      return handleAnalyze(request, env, origin);
     }
 
-    const ip = request.headers.get("CF-Connecting-IP") || "unknown";
-    const allowed = await checkRateLimit(env, ip);
-    if (!allowed) {
-      return json(
-        { error: "Too many requests. Please try again in a bit." },
-        429,
-        origin,
-      );
+    if (url.pathname === "/feedback" && request.method === "POST") {
+      return handleFeedback(request, env, origin);
     }
 
-    try {
-      const result = await callGroq(env, jobText);
-      return json(result, 200, origin);
-    } catch (e) {
-      return json({ error: (e as Error).message || "Analysis failed." }, 502, origin);
+    if (request.method !== "GET" && request.method !== "POST") {
+      return json({ error: "Method not allowed." }, 405, origin);
     }
+
+    return json({ error: "Not found." }, 404, origin);
   },
 };

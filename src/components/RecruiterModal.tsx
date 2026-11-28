@@ -8,8 +8,13 @@ import {
   MinusCircle,
   XCircle,
   Sparkles,
+  ThumbsUp,
+  ThumbsDown,
+  Send,
 } from "lucide-react";
 import { FIT_ANALYZER_URL } from "../config";
+
+const FEEDBACK_URL = FIT_ANALYZER_URL.replace(/\/analyze$/, "/feedback");
 
 type BreakdownItem = { requirement: string; status: string; note: string };
 type FitResult = {
@@ -17,6 +22,7 @@ type FitResult = {
   verdict: string;
   breakdown: BreakdownItem[];
   pitch: string;
+  searchId: number | null;
 };
 
 function scoreColor(score: number) {
@@ -37,6 +43,8 @@ export default function RecruiterModal({ onClose }: { onClose: () => void }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<FitResult | null>(null);
+  const [feedbackState, setFeedbackState] = useState<"idle" | "correcting" | "sent">("idle");
+  const [correction, setCorrection] = useState("");
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -84,6 +92,25 @@ export default function RecruiterModal({ onClose }: { onClose: () => void }) {
     setResult(null);
     setError(null);
     setValue("");
+    setFeedbackState("idle");
+    setCorrection("");
+  };
+
+  const sendFeedback = async (rating: "accurate" | "inaccurate", comment?: string) => {
+    if (result?.searchId == null) {
+      setFeedbackState("sent");
+      return;
+    }
+    try {
+      await fetch(FEEDBACK_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ searchId: result.searchId, rating, comment }),
+      });
+    } catch {
+      // Feedback is best-effort; don't bother the user if it fails.
+    }
+    setFeedbackState("sent");
   };
 
   return (
@@ -183,6 +210,9 @@ export default function RecruiterModal({ onClose }: { onClose: () => void }) {
                 "Analyze Fit"
               )}
             </button>
+            <p className="mt-2 text-center text-[11px] text-slate-400 dark:text-slate-500">
+              Submissions may be stored anonymized to improve future results.
+            </p>
           </>
         )}
 
@@ -216,6 +246,55 @@ export default function RecruiterModal({ onClose }: { onClose: () => void }) {
             <blockquote className="mt-4 rounded-xl border-l-4 border-accent-500 bg-accent-50 p-4 text-sm italic text-slate-700 dark:bg-accent-500/10 dark:text-slate-300">
               "{result.pitch}"
             </blockquote>
+
+            <div className="mt-4 rounded-xl bg-slate-50 p-3 dark:bg-slate-800/50">
+              {feedbackState === "sent" && (
+                <p className="text-center text-sm text-slate-500 dark:text-slate-400">
+                  Thanks for the feedback — it helps future analyses.
+                </p>
+              )}
+              {feedbackState === "idle" && (
+                <div className="flex items-center justify-center gap-3">
+                  <span className="text-sm text-slate-500 dark:text-slate-400">Was this accurate?</span>
+                  <button
+                    onClick={() => sendFeedback("accurate")}
+                    aria-label="Accurate"
+                    className="rounded-full p-2 text-slate-400 transition hover:bg-emerald-100 hover:text-emerald-600 dark:hover:bg-emerald-500/10"
+                  >
+                    <ThumbsUp size={16} />
+                  </button>
+                  <button
+                    onClick={() => setFeedbackState("correcting")}
+                    aria-label="Not accurate"
+                    className="rounded-full p-2 text-slate-400 transition hover:bg-rose-100 hover:text-rose-600 dark:hover:bg-rose-500/10"
+                  >
+                    <ThumbsDown size={16} />
+                  </button>
+                </div>
+              )}
+              {feedbackState === "correcting" && (
+                <div>
+                  <p className="text-center text-sm text-slate-500 dark:text-slate-400">
+                    What did it get wrong? (optional)
+                  </p>
+                  <div className="mt-2 flex gap-2">
+                    <input
+                      value={correction}
+                      onChange={(e) => setCorrection(e.target.value)}
+                      placeholder="e.g. I do have Kubernetes experience"
+                      className="w-full rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-sm text-slate-800 outline-none ring-accent-500/30 focus:ring-2 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100"
+                    />
+                    <button
+                      onClick={() => sendFeedback("inaccurate", correction.trim() || undefined)}
+                      aria-label="Submit correction"
+                      className="flex-none rounded-lg bg-accent-600 px-3 py-1.5 text-white transition hover:bg-accent-700"
+                    >
+                      <Send size={15} />
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
 
             <button
               onClick={reset}
