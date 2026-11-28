@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { Moon, Sun, Menu, X, FileDown } from "lucide-react";
+import { Moon, Sun, Menu, X, FileDown, Target } from "lucide-react";
 import { useTheme } from "../hooks/useTheme";
 import { profile } from "../data/resume";
+import RecruiterModal from "./RecruiterModal";
 
 const links = [
   { href: "#about", label: "About" },
@@ -17,6 +18,7 @@ export default function Navbar() {
   const { theme, toggle } = useTheme();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [recruiterOpen, setRecruiterOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -51,6 +53,13 @@ export default function Navbar() {
         </div>
 
         <div className="flex items-center gap-2">
+          <button
+            onClick={() => setRecruiterOpen(true)}
+            className="hidden items-center gap-1.5 rounded-full bg-accent-600 px-3 py-1.5 text-sm font-semibold text-white transition hover:bg-accent-700 sm:inline-flex"
+          >
+            <Target size={15} />
+            For Recruiters
+          </button>
           <a
             href={`${import.meta.env.BASE_URL}${profile.resumeFile}`}
             download
@@ -97,9 +106,21 @@ export default function Navbar() {
               <FileDown size={15} />
               Download Resume
             </a>
+            <button
+              onClick={() => {
+                setOpen(false);
+                setRecruiterOpen(true);
+              }}
+              className="flex items-center gap-1.5 text-sm font-medium text-accent-600 dark:text-accent-400"
+            >
+              <Target size={15} />
+              For Recruiters
+            </button>
           </div>
         </div>
       )}
+
+      {recruiterOpen && <RecruiterModal onClose={() => setRecruiterOpen(false)} />}
     </header>
   );
 }
